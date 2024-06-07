@@ -75,7 +75,7 @@ int near_position(geometry_msgs::PoseStamped goal)
 
 void go_position(geometry_msgs::PoseStamped goal)
 {
-    double k_v = 0.3; // 速度の係数
+    double k_v = 0.5; // 速度の係数
     double k_w = 1.6; // 角速度の係数
 	
 	// 指令する速度と角速度
@@ -207,7 +207,7 @@ int main(int argc, char **argv)
             int angle_center = scan.ranges.size() / 2;
             std::cout << "scan.ranges[" << angle_center << "] : " << scan.ranges[angle_center] << std::endl;
             //if(scan.ranges[angle_center] < 0.8 || scan.ranges[angle_center - 10] < 0.8 || scan.ranges[angle_center - 20] < 0.8 || scan.ranges[angle_center - 30] < 0.8 || scan.ranges[angle_center - 40] < 0.8){
-            if(std::any_of(scan.ranges.begin() + (angle_center - 30), scan.ranges.begin() + angle_center, [](float range) { return range < 0.8; })){ 
+            if(std::any_of(scan.ranges.begin() + (angle_center - 50), scan.ranges.begin() + (angle_center + 30), [](float range) { return range < 0.8; })){ 
 				scan_flag += 1;
                 //std::cout << "scan_flag =" << scan_flag << std::endl;
 				if (scan_flag >= 300){
